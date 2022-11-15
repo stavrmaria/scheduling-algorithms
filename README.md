@@ -17,4 +17,14 @@ In this type of scheduling method, the CPU has been allocated to a specific proc
 - Process: It is the reference that is used for both job and user.
 - CPU/IO burst cycle: Characterizes process execution, which alternates between CPU and I/O activity. CPU times are usually shorter than the time of I/O.
 
-line endings in Makefile [https://stackoverflow.com/questions/5834014/lf-will-be-replaced-by-crlf-in-git-what-is-that-and-is-it-important]
+```mermaid
+graph TD;
+    CPU-Sheduling-->Preemitive;
+    CPU-Sheduling-->Non-Preemitive;
+    Preemitive-->Shortest-Remaining-Time-First;
+    Preemitive-->Round-Robin;
+    Non-Preemitive-->First-Come-First-Serve;
+    Non-Preemitive-->Shortest-Job-First;
+```
+
+[Line endings in Makefile](https://stackoverflow.com/questions/5834014/lf-will-be-replaced-by-crlf-in-git-what-is-that-and-is-it-important)
