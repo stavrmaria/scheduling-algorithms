@@ -27,4 +27,23 @@ graph TD;
     Non-Preemitive-->Shortest-Job-First;
 ```
 
+## Execution
+To complile each .c file run
+```c
+make [file]
+```
+To complile all .c files just run
+```c
+make
+```
+To execute an algorithm for a specific test case run
+```c
+./[algorithm] | tests/INPUT[index]
+```
+
+## Algorithms
+### FCFS (First-Count-First-Serve)
+FCFS is the simplest scheduling algorithm. FIFO simply queues processes in the order that they arrive in the ready queue. 
+In this, the process that comes first will be executed first and next process starts only after the previous gets fully executed.
+
 [Line endings in Makefile](https://stackoverflow.com/questions/5834014/lf-will-be-replaced-by-crlf-in-git-what-is-that-and-is-it-important)
