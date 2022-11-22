@@ -46,5 +46,7 @@ int main() {
 		printf("P%d								%d - %d\n", i + 1, arr[i].start_time, arr[i].end_time);
 	}
 
+	free(arr);
+
 	return 0; /* DO NOT EDIT THIS LINE */
 }

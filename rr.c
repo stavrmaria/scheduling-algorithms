@@ -25,7 +25,7 @@ int main() {
 	/* read in data - DO NOT EDIT (END) */
 
 
-
+	free(arr);
 
 	return 0; /* DO NOT EDIT THIS LINE */
 }

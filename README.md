@@ -29,16 +29,25 @@ graph TD;
 
 ## Execution
 To complile each .c file run
-```c
+```
 make [file]
 ```
 To complile all .c files just run
-```c
+```
 make
 ```
 To execute an algorithm for a specific test case run
-```c
+```
 ./[algorithm] | tests/INPUT[index]
+```
+Input format
+```
+number-of-processes(N)
+quantum
+process-index0 arrival-time0 burst-time0
+process-index1 arrival-time1 burst-time1
+...
+process-indexN-1 arrival-timeN-1 burst-timeN-1
 ```
 
 ## Algorithms
