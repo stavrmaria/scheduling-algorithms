@@ -6,8 +6,8 @@ typedef struct {
 	int arrival_time;
 	int burst_time;
 
-	int start_time;	// time when the process starts executing
-	int end_time;	// time when the process ends executing
+	int start_time;
+	int end_time;
 } process;
 
 // implementation of the fcfs algorithm
@@ -41,9 +41,9 @@ int main() {
 	/* read in data - DO NOT EDIT (END) */
 
 	execute_fcfs(arr, n);
-	printf("Process =============== Start time - End time\n");
+	printf("Process =============== Start time - End time===\n");
 	for (int i = 0; i < n; i++) {
-		printf("P%d								%d - %d\n", i + 1, arr[i].start_time, arr[i].end_time);
+		printf("P%d				%d - %d\n", arr[i].pid, arr[i].start_time, arr[i].end_time);
 	}
 
 	free(arr);
