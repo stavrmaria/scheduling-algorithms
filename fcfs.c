@@ -6,9 +6,19 @@ typedef struct {
 	int arrival_time;
 	int burst_time;
 
-	int start_time;
-	int end_time;
+	int waiting_time;
+	int turnaround_time;
 } process;
+
+void calculate_times(process *processes, int n) {
+	processes[0].waiting_time = 0;
+	processes[0].turnaround_time = processes[0].burst_time;
+
+	for (int i = 1; i < n; i++) {
+		processes[i].waiting_time = processes[i - 1].burst_time + processes[i - 1].waiting_time;
+		processes[i].turnaround_time = processes[i].waiting_time + processes[i].burst_time;
+	}
+}
 
 int main() {
 
@@ -26,12 +36,19 @@ int main() {
 	}
 	/* read in data - DO NOT EDIT (END) */
 
+	int process_index = 0;
 	int current_time = arr[0].arrival_time;
-	printf("Process =============== Start time - End time===\n");
-	for (int i = 0; i < n; i++) {
-		printf("P%d				%d - %d\n", arr[i].pid, current_time, current_time + arr[i].burst_time);
-		current_time += arr[i].burst_time;
+
+	calculate_times(arr, n);
+	while (process_index < n) {
+		printf("%d\n", arr[process_index].pid);
+
+		if (current_time >= arr[process_index].turnaround_time - 1)
+			process_index++;
+
+		current_time++;
 	}
+	
 
 	free(arr);
 
