@@ -5,7 +5,40 @@ typedef struct {
 	int pid;
 	int arrival_time;
 	int burst_time;
+	int remaining_time;
 } process;
+
+void execute_srtf(process *processes, int n) {
+	int finished_processes = 0;
+	int current_time = 0;
+	char check = 0;
+	int minimum_index;
+
+	for (int i = 0; i < n; i++) {
+		processes[i].remaining_time = processes[i].burst_time;
+	}
+
+	while (finished_processes < n) {
+		minimum_index = 0;
+		while (processes[minimum_index].remaining_time == 0) minimum_index++;
+		
+		for (int i = 0; i < n; i++) {
+			if (processes[i].arrival_time <= current_time && processes[i].remaining_time < processes[minimum_index].remaining_time 
+				&& processes[i].remaining_time > 0) {
+				minimum_index = i;
+			}
+		}
+
+		printf("%d\n", processes[minimum_index].pid);
+		processes[minimum_index].remaining_time--;
+
+		if (processes[minimum_index].remaining_time == 0) {
+			finished_processes++;
+		}
+
+		current_time++;
+	}
+}
 
 
 int main() {
@@ -24,6 +57,7 @@ int main() {
 	}
 	/* read in data - DO NOT EDIT (END) */
 
+	execute_srtf(arr, n);
 
 	free(arr);
 
