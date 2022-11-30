@@ -5,13 +5,11 @@ typedef struct {
 	int pid;
 	int arrival_time;
 	int burst_time;
-	int remaining_time;
 } process;
 
 void execute_sjf(process *processes, int n) {
 	int finished_processes = 0;
 	int current_time = 0;
-	char check = 0;
 	int minimum_index;
 
 	while (finished_processes < n) {
