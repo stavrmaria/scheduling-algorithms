@@ -20,6 +20,21 @@ void calculate_times(process *processes, int n) {
 	}
 }
 
+void execute_fcfs(process *processes, int n) {
+	int process_index = 0;
+	int current_time = processes[0].arrival_time;
+
+	calculate_times(processes, n);
+	while (process_index < n) {
+		printf("%d\n", processes[process_index].pid);
+
+		if (current_time >= processes[process_index].turnaround_time - 1)
+			process_index++;
+
+		current_time++;
+	}
+}
+
 int main() {
 
 	/* read in data - DO NOT EDIT (START) */
@@ -35,21 +50,8 @@ int main() {
 		scanf("%d", &arr[i].burst_time);
 	}
 	/* read in data - DO NOT EDIT (END) */
-
-	int process_index = 0;
-	int current_time = arr[0].arrival_time;
-
-	calculate_times(arr, n);
-	while (process_index < n) {
-		printf("%d\n", arr[process_index].pid);
-
-		if (current_time >= arr[process_index].turnaround_time - 1)
-			process_index++;
-
-		current_time++;
-	}
 	
-
+	execute_fcfs(arr, n);
 	free(arr);
 
 	return 0; /* DO NOT EDIT THIS LINE */

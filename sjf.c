@@ -52,7 +52,6 @@ int main() {
 	/* read in data - DO NOT EDIT (END) */
 
 	execute_sjf(arr, n);
-
 	free(arr);
 
 	return 0; /* DO NOT EDIT THIS LINE */
