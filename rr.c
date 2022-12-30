@@ -25,6 +25,8 @@ process *rotate(process *processes, int n) {
 	}
 
 	processes[n - 1] = temp;
+
+	return processes;
 }
 
 process *add(process *processes, int n, process element) {
@@ -34,11 +36,11 @@ process *add(process *processes, int n, process element) {
 		temp[i] = processes[i];
 	
 	temp[n] = element;
-	processes = (process*)realloc(processes, n + 1);
+	processes = realloc(processes, (n + 1) * sizeof(process));
 
 	for (int i = 0; i < n + 1; i++)
 		processes[i] = temp[i];
-
+	
 	return processes;
 }
 
@@ -56,7 +58,7 @@ process *delete(process *processes, int n, process element) {
 	for (int i = 0; i < n; i++)
 		temp[i] = processes[i];
 	
-	processes = (process*)realloc(processes, sizeof(process) * (n - 1));
+	processes = realloc(processes, sizeof(process) * (n - 1));
 	for (int i = 0; i <= index; i++)
 		processes[i] = temp[i];
 	
@@ -79,20 +81,23 @@ void execute_rr(process *processes, int n, int quantum) {
 	while (finished_processes < m) {
 		// find processes than have arrived until the current time
 		int counter = 0;
-		while (processes[counter].arrival_time <= current_time && counter < n) {
-			if (search(queue, size, processes[counter].pid) == -1 && processes[counter].burst_time > 0)
+		while (size < n && processes[counter].arrival_time <= current_time && counter < n) {
+			if (search(queue, size, processes[counter].pid) == -1 && processes[counter].burst_time > 0) {
 				queue = add(queue, size++, processes[counter]);
+			}
 
 			counter++;
 		}
 
-		current = (current + 1) % size;
-		if (queue[current].burst_time > quantum) {
+		if (queue[current].burst_time >= quantum) {
+			current = 0;
+			queue = rotate(queue, size);
 			time = quantum;
 			queue[current].burst_time -= quantum;
 			current_pid = queue[current].pid;
-			queue = rotate(queue, size);
 		} else {
+			current = (current + 1) % size;
+
 			time = queue[current].burst_time;
 			queue[current].burst_time = 0;
 			current_pid = queue[current].pid;
@@ -103,7 +108,6 @@ void execute_rr(process *processes, int n, int quantum) {
 		}
 
 		current_time += time;
-
 		for (int i = 0; i < time; i++)
 			printf("%d\n", current_pid);
 	}
