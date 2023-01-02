@@ -41,6 +41,7 @@ process *add(process *processes, int n, process element) {
 	for (int i = 0; i < n + 1; i++)
 		processes[i] = temp[i];
 	
+	free(temp);
 	return processes;
 }
 
@@ -53,18 +54,11 @@ process *delete(process *processes, int n, process element) {
 	if (index == -1)
 		return processes;
 
-	process* temp = malloc(n * sizeof(process));
-
-	for (int i = 0; i < n; i++)
-		temp[i] = processes[i];
-	
-	processes = realloc(processes, sizeof(process) * (n - 1));
-	for (int i = 0; i <= index; i++)
-		processes[i] = temp[i];
-	
 	for (int i = index; i < n - 1; i++)
-		processes[i] = temp[i + 1];
-	
+		processes[i] = processes[i + 1];
+
+	processes = realloc(processes, (n - 1) * sizeof(process));
+
 	return processes;
 }
 
@@ -74,42 +68,46 @@ void execute_rr(process *processes, int n, int quantum) {
 	int m = n;
 	int current_time = processes[0].arrival_time;
 	process *queue = NULL;
-	int current = 0;
+	int index = 0;
 	int size = 0;
 	int current_pid;
+	char hasToRotate = 0;
 	
-	while (finished_processes < m) {
+	while (finished_processes < m && n > 0) {
 		// find processes than have arrived until the current time
 		int counter = 0;
 		while (size < n && processes[counter].arrival_time <= current_time && counter < n) {
 			if (search(queue, size, processes[counter].pid) == -1 && processes[counter].burst_time > 0) {
+				// add new process at the end of the queue
 				queue = add(queue, size++, processes[counter]);
 			}
-
 			counter++;
 		}
 
-		if (queue[current].burst_time >= quantum) {
-			current = 0;
-			queue = rotate(queue, size);
-			time = quantum;
-			queue[current].burst_time -= quantum;
-			current_pid = queue[current].pid;
-		} else {
-			current = (current + 1) % size;
+		if (hasToRotate)
+			rotate(queue, size);
 
-			time = queue[current].burst_time;
-			queue[current].burst_time = 0;
-			current_pid = queue[current].pid;
-			queue = delete(queue, size--, queue[current]);
-			process element = processes[search(processes, n, current_pid)];
-			processes = delete(processes, n--, element);
-			finished_processes++;
+		// select the first process in the queue
+		if (queue[index].burst_time <= quantum) {
+			current_pid = queue[index].pid;
+			time = queue[index].burst_time;
+
+			// remove the process from the queue
+			processes = delete(processes, n--, queue[index]);
+			queue = delete(queue, size--, queue[index]);
+			hasToRotate = 0;
+		} else {
+			current_pid = queue[index].pid;
+			time = quantum;
+			queue[index].burst_time -= quantum;
+			hasToRotate = 1;
+		}
+
+		for (int i = 0; i < time; i++) {
+			printf("%d\n", current_pid);
 		}
 
 		current_time += time;
-		for (int i = 0; i < time; i++)
-			printf("%d\n", current_pid);
 	}
 }
 
