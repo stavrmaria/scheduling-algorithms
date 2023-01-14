@@ -10,6 +10,7 @@ typedef struct {
 	int turnaround_time;
 } process;
 
+// calculate turnaround time & waiting time for each process
 void calculate_times(process *processes, int n) {
 	processes[0].waiting_time = 0;
 	processes[0].turnaround_time = processes[0].burst_time;
@@ -26,6 +27,7 @@ void execute_fcfs(process *processes, int n) {
 
 	calculate_times(processes, n);
 	while (process_index < n) {
+		// execute the process
 		printf("%d\n", processes[process_index].pid);
 
 		if (current_time >= processes[process_index].turnaround_time - 1)

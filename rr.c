@@ -7,6 +7,7 @@ typedef struct {
 	int burst_time;
 } process;
 
+// search & return the position of a process based on it's PID
 int search(process *processes, int n, int pid) {
 	for (int i = 0; i < n; i++) {
 		if (processes[i].pid == pid)
@@ -16,6 +17,8 @@ int search(process *processes, int n, int pid) {
 	return -1;
 }
 
+// rotate the queue by shifting all it's 
+// elements by once to the left
 process *rotate(process *processes, int n) {
 	process temp = processes[0];
 	int k = 0;
@@ -29,6 +32,7 @@ process *rotate(process *processes, int n) {
 	return processes;
 }
 
+// add a process in the end of array of processes
 process *add(process *processes, int n, process element) {
 	process* temp = malloc((n + 1) * sizeof(process));
 
@@ -45,12 +49,15 @@ process *add(process *processes, int n, process element) {
 	return processes;
 }
 
+// remove 
 process *delete(process *processes, int n, process element) {
 	int index = search(processes, n, element.pid);
 
+	// if the array is empty return NULL
 	if (n - 1 == 0)
 		return NULL;
 
+	// if the is no such element return the original array
 	if (index == -1)
 		return processes;
 
@@ -69,9 +76,9 @@ void execute_rr(process *processes, int n, int quantum) {
 	int current_time = processes[0].arrival_time;
 	process *queue = NULL;
 	int index = 0;
-	int size = 0;
+	int size = 0;			// size of the queue
 	int current_pid;
-	char hasToRotate = 0;
+	char hasToRotate = 0;	// checks whether the queue has to rotate or not
 	
 	while (finished_processes < m && n > 0) {
 		// find processes than have arrived until the current time
@@ -89,20 +96,25 @@ void execute_rr(process *processes, int n, int quantum) {
 
 		// select the first process in the queue
 		if (queue[index].burst_time <= quantum) {
+			// the process has a burst time less/equal to the quantum
+			// remove the process from the queue
+
 			current_pid = queue[index].pid;
 			time = queue[index].burst_time;
 
-			// remove the process from the queue
 			processes = delete(processes, n--, queue[index]);
 			queue = delete(queue, size--, queue[index]);
 			hasToRotate = 0;
 		} else {
+			// the process has a burst time greater than the quantum
+			// it will be positioned to the end of the queue
 			current_pid = queue[index].pid;
 			time = quantum;
 			queue[index].burst_time -= quantum;
 			hasToRotate = 1;
 		}
 
+		// execute the process for the given time
 		for (int i = 0; i < time; i++) {
 			printf("%d\n", current_pid);
 		}

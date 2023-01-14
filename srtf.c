@@ -12,7 +12,8 @@ void execute_srtf(process *processes, int n) {
 	int finished_processes = 0;
 	int current_time = 0;
 	char check = 0;
-	int minimum_index;
+	int minimum_index;		// index of the process with the minimum burst time
+	int counter = 0;
 
 	for (int i = 0; i < n; i++) {
 		processes[i].remaining_time = processes[i].burst_time;
@@ -20,8 +21,11 @@ void execute_srtf(process *processes, int n) {
 
 	while (finished_processes < n) {
 		minimum_index = 0;
-		while (processes[minimum_index].remaining_time == 0) minimum_index++;
+		counter = 0;
+		while (processes[minimum_index].remaining_time == 0 && counter++ < n) minimum_index++;
 		
+		// find the unfinished process that has arrived until the current time
+		// with the smallest remaining time
 		for (int i = 0; i < n; i++) {
 			if (processes[i].arrival_time <= current_time && processes[i].remaining_time < processes[minimum_index].remaining_time 
 				&& processes[i].remaining_time > 0) {
@@ -29,6 +33,7 @@ void execute_srtf(process *processes, int n) {
 			}
 		}
 
+		// execute the process for one time unit
 		printf("%d\n", processes[minimum_index].pid);
 		processes[minimum_index].remaining_time--;
 
