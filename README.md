@@ -29,16 +29,20 @@ graph TD;
 
 ## Execution
 To complile each .c file run
-```
+```console
 make [file]
 ```
 To complile all .c files just run
-```
+```console
 make
 ```
 To execute an algorithm for a specific test case run
-```
+```console
 ./[algorithm] | tests/INPUT[index]
+```
+To test the algorithms for all the available tests (/tests subfolder)
+```console
+make tests
 ```
 Input format
 ```
