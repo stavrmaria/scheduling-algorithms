@@ -11,11 +11,8 @@ In this type of scheduling method, the CPU has been allocated to a specific proc
 - Burst Time/Execution Time: It is a time required by the process to complete execution. It is also called running time.
 - Arrival Time: when a process enters in a ready state
 - Finish Time: when process complete and exit from a system
-- Multiprogramming: A number of programs which can be present in memory at the same time.
-- Jobs: It is a type of program without any kind of user interaction.
-- User: It is a kind of program having user interaction.
 - Process: It is the reference that is used for both job and user.
-- CPU/IO burst cycle: Characterizes process execution, which alternates between CPU and I/O activity. CPU times are usually shorter than the time of I/O.
+- CPU/IO burst cycle: Characterizes process execution, which alternates between CPU and I/O activity.
 
 ```mermaid
 graph TD;
@@ -53,10 +50,3 @@ process-index1 arrival-time1 burst-time1
 ...
 process-indexN-1 arrival-timeN-1 burst-timeN-1
 ```
-
-## Algorithms
-### FCFS (First-Count-First-Serve)
-FCFS is the simplest scheduling algorithm. FIFO simply queues processes in the order that they arrive in the ready queue. 
-In this, the process that comes first will be executed first and next process starts only after the previous gets fully executed.
-
-[Line endings in Makefile](https://stackoverflow.com/questions/5834014/lf-will-be-replaced-by-crlf-in-git-what-is-that-and-is-it-important)
