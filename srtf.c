@@ -47,8 +47,6 @@ void execute_srtf(process *processes, int n) {
 
 
 int main() {
-
-	/* read in data - DO NOT EDIT (START) */
 	int n;
 	int quantum;
 	scanf("%d", &n);
@@ -60,10 +58,8 @@ int main() {
 		scanf("%d", &arr[i].arrival_time);
 		scanf("%d", &arr[i].burst_time);
 	}
-	/* read in data - DO NOT EDIT (END) */
 
 	execute_srtf(arr, n);
 	free(arr);
-
-	return 0; /* DO NOT EDIT THIS LINE */
+	return 0;
 }

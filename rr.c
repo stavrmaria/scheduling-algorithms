@@ -28,7 +28,6 @@ process *rotate(process *processes, int n) {
 	}
 
 	processes[n - 1] = temp;
-
 	return processes;
 }
 
@@ -65,7 +64,6 @@ process *delete(process *processes, int n, process element) {
 		processes[i] = processes[i + 1];
 
 	processes = realloc(processes, (n - 1) * sizeof(process));
-
 	return processes;
 }
 
@@ -124,8 +122,6 @@ void execute_rr(process *processes, int n, int quantum) {
 }
 
 int main() {
-
-	/* read in data - DO NOT EDIT (START) */
 	int n;
 	int quantum;
 	scanf("%d", &n);
@@ -137,10 +133,9 @@ int main() {
 		scanf("%d", &arr[i].arrival_time);
 		scanf("%d", &arr[i].burst_time);
 	}
-	/* read in data - DO NOT EDIT (END) */
 	
 	execute_rr(arr, n, quantum);
 	free(arr);
 
-	return 0; /* DO NOT EDIT THIS LINE */
+	return 0;
 }

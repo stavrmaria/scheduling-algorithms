@@ -2,10 +2,11 @@
 Implementation of scheduling algorithms in operating systems in C.
 
 ## Preemptive Scheduling
-In Preemptive Scheduling, the tasks are mostly assigned with their priorities. Sometimes it is important to run a task with a higher priority before another lower priority task, even if the lower priority task is still running. The lower priority task holds for some time and resumes when the higher priority task finishes its execution.
+Preemptive Scheduling involves assigning tasks with their respective priorities. In certain cases, it becomes crucial to execute a task of higher priority before a lower priority task, even if the lower priority task is currently in progress. The lower priority task temporarily pauses its execution and resumes once the higher priority task completes.
+Non-Preemptive Scheduling
 
 ## Non-Preemptive Scheduling
-In this type of scheduling method, the CPU has been allocated to a specific process. The process that keeps the CPU busy will release the CPU either by switching context or terminating. It is the only method that can be used for various hardware platforms. That’s because it doesn’t need special hardware (for example, a timer) like preemptive scheduling.
+In Non-Preemptive Scheduling, the CPU is dedicated to a specific process. The process that occupies the CPU will release it either by switching contexts or terminating. This scheduling method is versatile and can be used on various hardware platforms without requiring special hardware, such as a timer, as is the case with preemptive scheduling.
 
 ## Scheduling Terminologies
 - Burst Time/Execution Time: It is a time required by the process to complete execution. It is also called running time.
@@ -13,16 +14,6 @@ In this type of scheduling method, the CPU has been allocated to a specific proc
 - Finish Time: when process complete and exit from a system
 - Process: It is the reference that is used for both job and user.
 - CPU/IO burst cycle: Characterizes process execution, which alternates between CPU and I/O activity.
-
-```mermaid
-graph TD;
-    CPU-Sheduling-->Preemitive;
-    CPU-Sheduling-->Non-Preemitive;
-    Preemitive-->Shortest-Remaining-Time-First;
-    Preemitive-->Round-Robin;
-    Non-Preemitive-->First-Come-First-Serve;
-    Non-Preemitive-->Shortest-Job-First;
-```
 
 ## Execution
 To complile each .c file run
